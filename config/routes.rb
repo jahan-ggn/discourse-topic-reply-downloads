@@ -5,4 +5,6 @@ DiscourseTopicReplyDownloads::Engine.routes.draw do
   # define routes here
 end
 
-Discourse::Application.routes.draw { mount ::DiscourseTopicReplyDownloads::Engine, at: "discourse-topic-reply-downloads" }
+Discourse::Application.routes.draw do
+  mount ::DiscourseTopicReplyDownloads::Engine, at: "discourse-topic-reply-downloads"
+end

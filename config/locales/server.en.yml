@@ -1,1 +1,3 @@
 en:
+  site_settings:
+    discourse_topic_reply_downloads_enabled: "Send a private message with download links when a member replies to a configured topic."

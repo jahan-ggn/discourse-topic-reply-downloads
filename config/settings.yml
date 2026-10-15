@@ -1,4 +1,3 @@
 discourse_topic_reply_downloads:
   discourse_topic_reply_downloads_enabled:
     default: false
-    client: true

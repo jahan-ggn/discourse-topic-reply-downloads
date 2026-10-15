@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 # name: discourse-topic-reply-downloads
-# about: TODO
-# meta_topic_id: TODO
+# about: Sends a private message with download links when a member replies to a configured topic.
 # version: 0.0.1
-# authors: Discourse
-# url: TODO
-# required_version: 2.7.0
+# authors: Jahan Gagan
+# url: https://github.com/jahan-ggn/discourse-topic-reply-downloads
 
 enabled_site_setting :discourse_topic_reply_downloads_enabled
 
