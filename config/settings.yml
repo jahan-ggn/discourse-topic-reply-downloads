@@ -52,6 +52,14 @@ discourse_topic_reply_downloads:
             name: attachment
             identifier: name
             properties:
+              identifier:
+                type: string
+                required: true
+                label: Attachment identifier
+                description: "Used in the PM, for example {{attachment:starter_pack}}. Start with a lowercase letter; use lowercase letters, numbers, and underscores only."
+                validations:
+                  max_length: 64
+
               name:
                 type: string
                 required: true

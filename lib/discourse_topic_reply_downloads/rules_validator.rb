@@ -26,6 +26,8 @@ module DiscourseTopicReplyDownloads
         return false
       end
 
+      rules.each { |rule| MessageBuilder.new(rule).build }
+
       true
     rescue Rules::InvalidConfiguration => error
       @error =
