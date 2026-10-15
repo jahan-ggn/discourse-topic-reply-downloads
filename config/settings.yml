@@ -1,3 +1,64 @@
 discourse_topic_reply_downloads:
   discourse_topic_reply_downloads_enabled:
     default: false
+
+  discourse_topic_reply_downloads_rules:
+    type: objects
+    default: []
+    schema:
+      name: download_rule
+      identifier: name
+      properties:
+        name:
+          type: string
+          required: true
+          label: Rule name
+          description: "An internal name to identify this rule."
+
+        enabled:
+          type: boolean
+          default: true
+          label: Enabled
+          description: "Send download messages for replies to this topic."
+
+        topic_id:
+          type: integer
+          required: true
+          label: Topic ID
+          description: "For /t/topic-title/27/7, enter 27."
+          validations:
+            min: 1
+
+        pm_subject:
+          type: string
+          required: true
+          label: PM subject
+          description: "The subject of the private message."
+          validations:
+            max_length: 255
+
+        pm_body:
+          type: string
+          required: true
+          label: PM message
+          description: 'The message sent to the member. Use \n for line breaks.'
+          validations:
+            max_length: 20000
+
+        attachments:
+          type: objects
+          schema:
+            name: attachment
+            identifier: name
+            properties:
+              name:
+                type: string
+                required: true
+                label: Attachment name
+                description: "The display name for this download."
+
+              url:
+                type: string
+                required: true
+                label: Download URL
+                description: "A download link that the recipient can access."

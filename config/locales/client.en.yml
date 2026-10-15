@@ -6,4 +6,5 @@ en:
           discourse_topic_reply_downloads: "Discourse Topic Reply Downloads"
   js:
     discourse_topic_reply_downloads:
-      placeholder: placeholder
+      title: "Discourse Topic Reply Downloads"
+      admin_navigation: "Discourse Topic Reply Downloads"
