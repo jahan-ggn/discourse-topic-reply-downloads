@@ -1,4 +1,4 @@
-# **Plugin Name** Plugin
+# **Discourse Topic Reply Downloads** Plugin
 
 **Plugin Summary**
 

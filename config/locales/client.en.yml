@@ -3,7 +3,7 @@ en:
     admin:
       site_settings:
         categories:
-          TODO_plugin_name: "Plugin Name"
+          discourse_topic_reply_downloads: "Discourse Topic Reply Downloads"
   js:
-    discourse_plugin_name:
+    discourse_topic_reply_downloads:
       placeholder: placeholder
