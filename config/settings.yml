@@ -5,6 +5,7 @@ discourse_topic_reply_downloads:
   discourse_topic_reply_downloads_rules:
     type: objects
     default: []
+    validator: "DiscourseTopicReplyDownloads::RulesValidator"
     schema:
       name: download_rule
       identifier: name

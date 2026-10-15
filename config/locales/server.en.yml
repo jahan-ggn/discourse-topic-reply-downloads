@@ -1,4 +1,9 @@
 en:
   site_settings:
     discourse_topic_reply_downloads_enabled: "Send a private message with download links when a member replies to a configured topic."
-    discourse_topic_reply_downloads_rules: "Configure one rule per topic, including its PM subject, message, and attachments. Use \\n in the message for line breaks. Download links must be accessible to recipients."
+    discourse_topic_reply_downloads_rules: 'Configure one rule per topic, including its PM subject, message, and attachments. Use \n in the message for line breaks. Download links must be accessible to recipients.'
+
+  discourse_topic_reply_downloads:
+    errors:
+      duplicate_topics: "Only one enabled download rule is allowed per topic. Conflicting topic IDs: %{topic_ids}."
+      invalid_configuration: "Invalid download configuration: %{reason}"
