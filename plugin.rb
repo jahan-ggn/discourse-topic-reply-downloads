@@ -17,9 +17,9 @@ require_relative "lib/discourse_topic_reply_downloads/engine"
 after_initialize do
   on(:post_created) do |post, options, _user|
     next if options&.dig(:import_mode)
-    next unless post.post_number > 1
+    next if post.post_number <= 1
     next unless post.post_type == Post.types[:regular]
-    next unless post.user_id.to_i > 0
+    next if post.user_id.to_i <= 0
     next unless post.topic&.archetype == Archetype.default
 
     next unless DiscourseTopicReplyDownloads::Rules.for_topic(post.topic_id)
