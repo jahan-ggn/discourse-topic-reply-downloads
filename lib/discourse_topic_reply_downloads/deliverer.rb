@@ -15,6 +15,16 @@ module DiscourseTopicReplyDownloads
       rule = Rules.for_topic(post.topic_id)
       return unless rule
 
+      sender_username =
+        SiteSetting.discourse_topic_reply_downloads_sender.presence ||
+          Discourse.system_user.username
+      sender = User.find_by_username(sender_username)
+
+      unless sender&.active? && !sender.staged? && !sender.suspended?
+        raise Rules::InvalidConfiguration,
+              "The configured PM sender '#{sender_username}' is missing, inactive, staged, or suspended"
+      end
+
       message = MessageBuilder.new(rule).build
 
       delivery =
@@ -28,7 +38,7 @@ module DiscourseTopicReplyDownloads
         unless delivery.sent?
           creator =
             PostCreator.new(
-              Discourse.system_user,
+              sender,
               message.merge(
                 archetype: Archetype.private_message,
                 target_usernames: recipient.username,
