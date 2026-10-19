@@ -72,12 +72,12 @@ module DiscourseTopicReplyDownloads
 
         validate_url!(url)
 
-        links[identifier] = attachment_markdown(name, url)
+        links[identifier] = attachment_markdown(name, url, identifier: identifier)
       end
     end
 
-    def attachment_markdown(name, url)
-      if upload = local_upload(url)
+    def attachment_markdown(name, url, identifier:)
+      if upload = local_upload(url, identifier: identifier)
         return UploadMarkdown.new(upload).to_markdown(display_name: name)
       end
 
@@ -85,7 +85,7 @@ module DiscourseTopicReplyDownloads
       "[#{label}](<#{url}>)"
     end
 
-    def local_upload(url)
+    def local_upload(url, identifier:)
       uri = URI.parse(url)
       site_uri = URI.parse(Discourse.base_url)
 
@@ -93,11 +93,19 @@ module DiscourseTopicReplyDownloads
         return
       end
 
-      if sha1 = Upload.sha1_from_short_path(uri.path)
-        Upload.find_by(sha1: sha1)
-      else
-        Upload.get_from_url(url)
+      upload =
+        if sha1 = Upload.sha1_from_short_path(uri.path)
+          Upload.find_by(sha1: sha1)
+        else
+          Upload.get_from_url(url)
+        end
+
+      if upload.nil? && uri.path.start_with?("#{Discourse.base_path}/uploads/")
+        raise Rules::InvalidConfiguration,
+              "Attachment '#{identifier}' references a Discourse upload that no longer exists. Replace its download URL."
       end
+
+      upload
     end
 
     def validate_url!(url)
