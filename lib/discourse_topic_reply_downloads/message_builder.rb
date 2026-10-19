@@ -72,8 +72,31 @@ module DiscourseTopicReplyDownloads
 
         validate_url!(url)
 
-        label = name.gsub(/[\\`*_\[\]<>]/) { |character| "\\#{character}" }
-        links[identifier] = "[#{label}](<#{url}>)"
+        links[identifier] = attachment_markdown(name, url)
+      end
+    end
+
+    def attachment_markdown(name, url)
+      if upload = local_upload(url)
+        return UploadMarkdown.new(upload).to_markdown(display_name: name)
+      end
+
+      label = name.gsub(/[\\`*_\[\]<>]/) { |character| "\\#{character}" }
+      "[#{label}](<#{url}>)"
+    end
+
+    def local_upload(url)
+      uri = URI.parse(url)
+      site_uri = URI.parse(Discourse.base_url)
+
+      unless uri.scheme == site_uri.scheme && uri.host == site_uri.host && uri.port == site_uri.port
+        return
+      end
+
+      if sha1 = Upload.sha1_from_short_path(uri.path)
+        Upload.find_by(sha1: sha1)
+      else
+        Upload.get_from_url(url)
       end
     end
 
